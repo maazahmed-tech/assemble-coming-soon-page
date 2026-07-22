@@ -71,6 +71,31 @@
     transition:opacity .35s,transform .45s var(--ease);font-size:9px;letter-spacing:.2em}
   .dev-credit:hover .dc-text,.dev-credit:focus-visible .dc-text{opacity:.85;transform:translateY(-50%)}
 
+  /* ===== DeepLearnHQ reveal overlay (easter egg) ===== */
+  .dlhq-reveal{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:24px;
+    background:rgba(9,11,20,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    opacity:0;pointer-events:none;transition:opacity .4s var(--ease)}
+  .dlhq-reveal.on{opacity:1;pointer-events:auto}
+  .dlhq-card{position:relative;text-align:center;max-width:520px;transform:scale(.92) translateY(14px);opacity:0;
+    transition:transform .6s var(--ease),opacity .5s ease}
+  .dlhq-reveal.on .dlhq-card{transform:none;opacity:1}
+  .dlhq-burst{position:absolute;left:50%;top:30px;width:360px;height:360px;transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle,rgba(143,110,242,.34),transparent 62%);filter:blur(6px);pointer-events:none;animation:dlhqPulse 3.2s ease-in-out infinite}
+  @keyframes dlhqPulse{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.13)}}
+  .dlhq-sun{position:relative;font-size:46px;color:var(--accent);animation:dlhqSpin 9s linear infinite;filter:drop-shadow(0 0 16px rgba(143,110,242,.55))}
+  @keyframes dlhqSpin{to{transform:rotate(360deg)}}
+  .dlhq-eyebrow{font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+  .dlhq-name{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(40px,8vw,74px);line-height:1.02;margin-top:8px;letter-spacing:-.02em;
+    background:linear-gradient(110deg,#F4F8FC,#C9F2FF,#8F6EF2,#F4F8FC);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .dlhq-tag{color:#B4BAC6;font-size:15px;line-height:1.6;margin:12px auto 0;max-width:340px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:300}
+  .dlhq-btn{display:inline-block;margin-top:26px;padding:13px 26px;border-radius:999px;background:linear-gradient(110deg,#A98EEF,#8F6EF2);
+    color:#0F111F;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;text-decoration:none;
+    box-shadow:0 18px 38px -16px rgba(143,110,242,.7);transition:transform .16s var(--ease)}
+  .dlhq-btn:hover{transform:translateY(-2px)}
+  .dlhq-close{display:block;margin:22px auto 0;background:none;border:none;color:var(--muted);font-family:'Space Grotesk',monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:color .3s}
+  .dlhq-close:hover{color:var(--ink)}
+
   /* ===== center lockup ===== */
   .wrap{position:relative;z-index:20;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:clamp(66px,9vh,88px) 24px clamp(84px,13vh,110px);gap:6px}
@@ -101,7 +126,7 @@
     opacity:0;animation:fadeUp .9s var(--ease) forwards .5s}
   .tagline{display:flex;align-items:center;gap:12px;margin-top:16px;opacity:0;animation:fadeUp .9s var(--ease) forwards .7s}
   .tagline .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
-  .tagline span{font-family:'Space Grotesk',sans-serif;font-size:clamp(14px,3.4vw,19px);color:var(--muted);letter-spacing:.01em}
+  .tagline span{font-family:'Space Grotesk',sans-serif;font-size:clamp(14px,3.4vw,19px);color:#C7CDD9;letter-spacing:.01em}
 
   .soon{display:flex;align-items:center;gap:clamp(12px,3vw,22px);margin-top:clamp(20px,3.6vh,34px);
     font-family:'Space Grotesk',monospace;font-size:clamp(10px,1.5vw,13px);letter-spacing:.5em;text-transform:uppercase;color:var(--ink);
@@ -122,6 +147,13 @@
   @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
   @keyframes pulse{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1)}}
+
+  /* desktop: text lockup 10% smaller so the enlarged mark stays the hero */
+  @media (min-width:1024px){
+    .wordmark{font-size:79px}
+    .tagline span{font-size:17px}
+    .soon{font-size:12px}
+  }
 
   /* short / landscape viewports: shrink mark + trim chrome so nothing collides with the marquee */
   @media (max-height:760px){
@@ -163,8 +195,6 @@
 
   <!-- center lockup -->
   <main class="wrap">
-    <div class="eyebrow"><span class="pip"></span>Fashion&nbsp;·&nbsp;Tech</div>
-
     <div class="mark">
       <div class="stage"><div class="persp"><div class="tilt">
         <div class="ring">
@@ -234,7 +264,7 @@
     </div>
 
     <h1 class="wordmark">assemble</h1>
-    <div class="tagline"><i class="dot"></i><span>Where everything coordinates</span></div>
+    <div class="tagline"><span>Where everything coordinates</span></div>
 
     <div class="soon"><span class="ln"></span>Coming&nbsp;Soon<span class="ln r"></span></div>
   </main>
@@ -246,5 +276,29 @@
       <span>assemble&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;where everything coordinates&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;coming soon 2026&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;fashion · tech&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;</span>
     </div>
   </div>
+  <!-- DeepLearnHQ reveal overlay (easter egg) -->
+  <div class="dlhq-reveal" id="dlhqReveal" role="dialog" aria-modal="true" aria-label="Developed by DeepLearnHQ">
+    <div class="dlhq-card">
+      <div class="dlhq-burst"></div>
+      <div class="dlhq-sun" aria-hidden="true">◵</div>
+      <div class="dlhq-eyebrow">This site was crafted by</div>
+      <div class="dlhq-name">DeepLearnHQ</div>
+      <div class="dlhq-tag">Design &amp; engineering for the modern web.</div>
+      <a class="dlhq-btn" href="https://deeplearnhq.tech" target="_blank" rel="noopener noreferrer">Visit deeplearnhq.tech →</a>
+      <button class="dlhq-close" type="button">tap anywhere to close</button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var trigger=document.querySelector('.dev-credit');
+      var reveal=document.getElementById('dlhqReveal');
+      function openReveal(e){ if(e){ e.preventDefault(); } reveal.classList.add('on'); }
+      function closeReveal(){ reveal.classList.remove('on'); }
+      if(trigger){ trigger.addEventListener('click', openReveal); }
+      reveal.addEventListener('click', function(e){ if(!e.target.closest('.dlhq-btn')){ closeReveal(); } });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeReveal(); } });
+    })();
+  </script>
 </body>
 </html>
